@@ -1,0 +1,22 @@
+name: Request update data files
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Request update data files in pastry fish server
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: ${{ secrets.PASTRY_FISH_SERVER_HOST }}/records/dataFiles/all
+        method: "POST"
+        bearerToken: ${{ secrets.PASTRY_FISH_SERVER_ACCESS_TOKEN }}
+        timeout: 60000
+        
