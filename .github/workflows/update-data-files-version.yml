@@ -20,10 +20,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: echo
+      run: echo Hello, world! $GITHUB_SHA
     - name: curl
       uses: fjogeleit/http-request-action@master
       with:
-        url: '${{ secrets.PASTRY_FISH_SERVER_ACCESS_TOKEN }}/records/dataFilesVersion/$GITHUB_SHA'
-        method: 'POST'
+        url: ${{ secrets.PASTRY_FISH_SERVER_HOST }}/records/dataFilesVersion/${{ github.sha }}
+        method: "PUT"
         bearerToken: ${{ secrets.PASTRY_FISH_SERVER_ACCESS_TOKEN }}
         
